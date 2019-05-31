@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Bym.UI.Models.Domain
 {
-    public class SalaReuniao : EntidadeDominio
+    public class Sala : EntidadeDominio
     {
         public int CapacidadeMaxima { get; set; }
         public string Descricao { get; set; }

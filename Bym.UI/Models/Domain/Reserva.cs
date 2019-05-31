@@ -10,7 +10,7 @@ namespace Bym.UI.Models.Domain
         public DateTime Data { get; set; }
         public TimeSpan HoraInicio { get; set; }
         public decimal HorasReservadas { get; set; }
-        public SalaReuniao Sala { get; set; }
+        public Sala Sala { get; set; }
         public Usuario Usuario { get; set; }
     }
 }

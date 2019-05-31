@@ -14,7 +14,7 @@ namespace Bym.UI.Models.DAL
         {
             get
             {
-                return ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                return DbUtil.ConnectionString;
             }
         }
 
@@ -28,62 +28,105 @@ namespace Bym.UI.Models.DAL
 
         public static void ExecuteQuery(string query)
         {
-            using (var conn = _SqlConnection)
+            try
             {
-                using (var cmd = new SqlCommand())
+                using (var conn = _SqlConnection)
                 {
-                    cmd.CommandText = query;
-                    cmd.CommandType = CommandType.Text;
+                    using (var cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
 
-                    conn.Open();
+                        conn.Open();
 
-                    cmd.ExecuteScalar();
+                        cmd.ExecuteScalar();
+                    }
                 }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
         public static void ExecuteNonQuery(string StoredProcedure, IList<SqlParameter> sqlParameters)
         {
-            using (var conn = _SqlConnection)
+            try
             {
-                using (var cmd = new SqlCommand(StoredProcedure, conn))
+                using (var conn = _SqlConnection)
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddRange((SqlParameter[])sqlParameters);
-                    
-                    conn.Open();
+                    using (var cmd = new SqlCommand(StoredProcedure, conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddRange((SqlParameter[])sqlParameters);
 
-                    cmd.ExecuteNonQuery();
+                        conn.Open();
+
+                        cmd.ExecuteNonQuery();
+                    }
                 }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
-        public static IDataReader ExecuteReader(string StoredProcedure, IList<SqlParameter> sqlParameters)
+        public static IDataReader ExecuteNonQueryReader(string StoredProcedure, IList<SqlParameter> sqlParameters)
         {
-            using (var conn = _SqlConnection)
+            try
             {
-                using (var cmd = new SqlCommand(StoredProcedure, conn))
+                using (var conn = _SqlConnection)
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddRange((SqlParameter[])sqlParameters);
+                    using (var cmd = new SqlCommand(StoredProcedure, conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddRange((SqlParameter[])sqlParameters);
 
-                    conn.Open();
+                        conn.Open();
 
-                    return cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                        return cmd.ExecuteReader(CommandBehavior.CloseConnection);
+                    }
                 }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
-        public static SqlDataReader ExecuteQueryComRetorno(string Query)
+        public static SqlDataReader ExecuteQueryReader(string Query)
         {
-            using (var conn = _SqlConnection)
+            try
             {
-                using (var cmd = new SqlCommand(Query))
+                using (var conn = _SqlConnection)
                 {
-                    conn.Open();
+                    using (var cmd = new SqlCommand(Query, conn))
+                    {
+                        conn.Open();
 
-                    return cmd.ExecuteReader();
+                        return cmd.ExecuteReader();
+                    }
                 }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
