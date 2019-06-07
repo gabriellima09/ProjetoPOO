@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - @AppName</title>
@@ -24,10 +24,23 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Início", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Cadastrar Usuario", "Create", "Usuario")</li>
                     <li>@Html.ActionLink("Gestao de Reservas", "Index", "Reserva")</li>
                     <li>@Html.ActionLink("Gestão de Salas", "Index", "Sala")</li>
                 </ul>
+
+                @if (Session.Count > 0)
+                {
+                    <div style="float:right">
+                        @Html.Action("RetornarUsuarioSessao", "Usuario")
+                    </div>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav" style="float:right">
+                        <li>@Html.ActionLink("Cadastre-se", "Create", "Usuario")</li>
+                        <li>@Html.ActionLink("Login", "Login", "Usuario")</li>
+                    </ul>                    
+                }
             </div>
         </div>
     </div>

@@ -42,6 +42,10 @@
             @Html.DisplayFor(model => model.ValorHora)
         </dd>
 
+        <dd>
+            @string.Concat(Model.Endereco.Logradouro, " ", Model.Endereco.Complemento, ", ", Model.Endereco.Numero)
+        </dd>
+
     </dl>
 </div>
 <p>

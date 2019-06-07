@@ -59,9 +59,39 @@ namespace Bym.UI.App_Start
                 sb.Append("IF OBJECT_ID('" + DbUtil.DatabaseName + ".USUARIOS') IS NULL");
                 sb.Append(" BEGIN");
                 sb.Append(" CREATE TABLE USUARIOS(");
-                sb.Append(" Id INTEGER IDENTITY(1,1) PRIMARY KEY,");
+                sb.Append(" Id INT IDENTITY(1,1) PRIMARY KEY,");
                 sb.Append(" Login VARCHAR(50),");
                 sb.Append(" Senha VARCHAR(50)");
+                sb.Append(");");
+                sb.Append(" END");
+
+                sb.Append("\n");
+
+                sb.Append("IF OBJECT_ID('" + DbUtil.DatabaseName + ".RESERVAS') IS NULL");
+                sb.Append(" BEGIN");
+                sb.Append(" CREATE TABLE RESERVAS(");
+                sb.Append(" Id INT IDENTITY(1,1) PRIMARY KEY,");
+                sb.Append(" Data VARCHAR(50),");
+                sb.Append(" HoraInicio VARCHAR(50),");
+                sb.Append(" HorasReservadas VARCHAR(50),");
+                sb.Append(" IdSala INT,");
+                sb.Append(" IdUsuario INT");
+                sb.Append(");");
+                sb.Append(" END");
+
+                sb.Append("\n");
+
+                sb.Append("IF OBJECT_ID('" + DbUtil.DatabaseName + ".SALAS') IS NULL");
+                sb.Append(" BEGIN");
+                sb.Append(" CREATE TABLE SALAS(");
+                sb.Append(" Id INT IDENTITY(1,1) PRIMARY KEY,");
+                sb.Append(" CapacidadeMaxima INT,");
+                sb.Append(" Descricao VARCHAR(50),");
+                sb.Append(" Nome VARCHAR(50),");
+                sb.Append(" ValorHora VARCHAR(50),");
+                sb.Append(" Logradouro VARCHAR(50),");
+                sb.Append(" Numero VARCHAR(50),");
+                sb.Append(" Complemento VARCHAR(50)");
                 sb.Append(");");
                 sb.Append(" END");
 

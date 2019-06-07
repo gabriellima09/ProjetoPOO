@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Bym.UI.Controllers
 {
-    //[SessionAuthotize]
+    [SessionAuthotize]
     public class SalaController : Controller
     {
         // GET: Sala

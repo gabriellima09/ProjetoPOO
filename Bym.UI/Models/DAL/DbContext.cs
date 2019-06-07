@@ -130,6 +130,32 @@ namespace Bym.UI.Models.DAL
             }
         }
 
+        public static bool ExecuteQueryLogin(string Query)
+        {
+            try
+            {
+                using (var conn = _SqlConnection)
+                {
+                    using (var cmd = new SqlCommand(Query, conn))
+                    {
+                        conn.Open();
+
+                        var reader = cmd.ExecuteReader();
+                        //resolver isso direito
+                        return Convert.ToInt32(reader["Exists"]) > 0;
+                    }
+                }
+            }
+            catch (SqlException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public void Dispose()
         {
             if (_SqlConnection.State != ConnectionState.Closed)

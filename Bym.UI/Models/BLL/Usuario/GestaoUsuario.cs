@@ -21,9 +21,9 @@ namespace Bym.UI.Models.BLL.Usuario
             usuarioDAL.Cadastrar(usuario);
         }
 
-        public void Logar(Domain.Usuario usuario)
+        public bool Login(Domain.Usuario usuario)
         {
-            throw new NotImplementedException();
+            return usuarioDAL.Login(usuario);
         }
     }
 }

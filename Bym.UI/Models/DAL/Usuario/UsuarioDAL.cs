@@ -18,9 +18,16 @@ namespace Bym.UI.Models.DAL.Usuario
             }
         }
 
-        public void AlterarSenha()
+        public bool Login(Domain.Usuario usuario)
         {
-            throw new NotImplementedException();
+            Sql.Append("SELECT (SELECT COUNT(*) FROM USUARIOS ");
+            Sql.Append("WHERE ");
+            Sql.Append("USUARIOS.Login LIKE '%" + usuario.Login + "%' ");
+            Sql.Append("AND USUARIOS.Senha LIKE '%" + usuario.Senha + "%') AS 'Exists'");
+
+            var reader = DbContext.ExecuteQueryLogin(Sql.ToString());
+
+            return reader;
         }
 
         public void Cadastrar(Domain.Usuario usuario)

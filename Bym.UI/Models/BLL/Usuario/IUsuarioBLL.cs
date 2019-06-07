@@ -10,6 +10,6 @@ namespace Bym.UI.Models.BLL.Usuario
     public interface IUsuarioBLL
     {
         void Cadastrar(Domain.Usuario usuario);
-        void Logar(Domain.Usuario usuario);
+        bool Login(Domain.Usuario usuario);
     }
 }

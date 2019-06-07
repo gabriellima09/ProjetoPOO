@@ -9,6 +9,6 @@ namespace Bym.UI.Models.DAL.Usuario
     public interface IUsuarioDAL
     {
         void Cadastrar(Domain.Usuario usuario);
-        void AlterarSenha();
+        bool Login(Domain.Usuario usuario);
     }
 }

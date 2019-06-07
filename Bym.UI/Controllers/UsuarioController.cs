@@ -23,6 +23,50 @@ namespace Bym.UI.Controllers
             return RedirectToAction("Create");
         }
 
+        public ActionResult RetornarUsuarioSessao()
+        {
+            string nome = string.Empty;
+
+            if (Session["Usuario"] != null)
+            {
+                nome = ((Usuario)Session["Usuario"]).Login;
+            }
+                
+            ViewBag.NomeUsuario = nome;
+
+            return PartialView("PV_Usuario");
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Login(Usuario usuario)
+        {
+            if (usuarioBLL.Login(usuario))
+            {
+                Session.Add("Usuario", usuario);
+                
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Usuário não encontrado ...");
+
+                return View(usuario);
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+
+            return RedirectToAction("Index", "Home");
+        }
+
         // GET: Usuario/Details/5
         public ActionResult Details(int id)
         {
