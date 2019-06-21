@@ -71,9 +71,8 @@ namespace Bym.UI.App_Start
                 sb.Append(" BEGIN");
                 sb.Append(" CREATE TABLE RESERVAS(");
                 sb.Append(" Id INT IDENTITY(1,1) PRIMARY KEY,");
-                sb.Append(" Data VARCHAR(50),");
-                sb.Append(" HoraInicio VARCHAR(50),");
-                sb.Append(" HorasReservadas VARCHAR(50),");
+                sb.Append(" DataHora DATETIME,");
+                sb.Append(" HorasReservadas DECIMAL(8,2),");
                 sb.Append(" IdSala INT,");
                 sb.Append(" IdUsuario INT");
                 sb.Append(");");
@@ -81,14 +80,14 @@ namespace Bym.UI.App_Start
 
                 sb.Append("\n");
 
-                sb.Append("IF OBJECT_ID('" + DbUtil.DatabaseName + ".SALAS') IS NULL");
+                sb.Append("IF (SELECT COUNT(name) FROM " + DbUtil.DatabaseName + ".sys.tables where name = 'SALAS') = 0");
                 sb.Append(" BEGIN");
                 sb.Append(" CREATE TABLE SALAS(");
                 sb.Append(" Id INT IDENTITY(1,1) PRIMARY KEY,");
                 sb.Append(" CapacidadeMaxima INT,");
                 sb.Append(" Descricao VARCHAR(50),");
                 sb.Append(" Nome VARCHAR(50),");
-                sb.Append(" ValorHora VARCHAR(50),");
+                sb.Append(" ValorHora DECIMAL(8,2),");
                 sb.Append(" Logradouro VARCHAR(50),");
                 sb.Append(" Numero VARCHAR(50),");
                 sb.Append(" Complemento VARCHAR(50)");

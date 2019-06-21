@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Bym.UI.Models.DAL.Usuario;
-using Bym.UI.Models.Domain;
+﻿using Bym.UI.Models.DAL.Usuario;
 
 namespace Bym.UI.Models.BLL.Usuario
 {
@@ -24,6 +19,11 @@ namespace Bym.UI.Models.BLL.Usuario
         public bool Login(Domain.Usuario usuario)
         {
             return usuarioDAL.Login(usuario);
+        }
+
+        public Domain.Usuario ConsultarPorId(int id)
+        {
+            return usuarioDAL.ConsultarPorId(id);
         }
     }
 }

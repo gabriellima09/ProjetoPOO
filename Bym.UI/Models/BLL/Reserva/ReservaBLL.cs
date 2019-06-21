@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Bym.UI.Models.BLL.Sala;
+using Bym.UI.Models.BLL.Usuario;
 using Bym.UI.Models.DAL;
 using Bym.UI.Models.DAL.Reserva;
 
@@ -25,7 +27,11 @@ namespace Bym.UI.Models.BLL.Reserva
 
         public Domain.Reserva ConsultarPorId(int id)
         {
-            return ReservaDAL.ConsultarPorId(id);
+            Domain.Reserva reserva = ReservaDAL.ConsultarPorId(id);
+            reserva.Sala = new SalaBLL().ConsultarPorId(reserva.Sala.Id);
+            reserva.Usuario = new UsuarioBLL().ConsultarPorId(reserva.Usuario.Id);
+
+            return reserva;
         }
 
         public List<Domain.Reserva> ConsultarTodos()

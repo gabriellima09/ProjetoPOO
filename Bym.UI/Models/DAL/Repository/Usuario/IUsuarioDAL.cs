@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 
 namespace Bym.UI.Models.DAL.Usuario
 {
@@ -10,5 +6,7 @@ namespace Bym.UI.Models.DAL.Usuario
     {
         void Cadastrar(Domain.Usuario usuario);
         bool Login(Domain.Usuario usuario);
+        Domain.Usuario ConsultarPorId(int id);
+        Domain.Usuario ObterEntidadeReader(IDataReader reader);
     }
 }

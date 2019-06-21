@@ -1,5 +1,6 @@
 ﻿using Bym.UI.Models.Domain;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Bym.UI.Models.DAL
 {
@@ -10,5 +11,6 @@ namespace Bym.UI.Models.DAL
         void Excluir(int id);
         IList<T> ConsultarTodos();
         T ConsultarPorId(int id);
+        T ObterEntidadeReader(IDataReader reader);
     }
 }

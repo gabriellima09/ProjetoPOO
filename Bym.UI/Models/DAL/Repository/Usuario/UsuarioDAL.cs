@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Data;
 using System.Text;
-using System.Web;
+using Bym.UI.Models.Domain;
 
 namespace Bym.UI.Models.DAL.Usuario
 {
@@ -50,6 +49,34 @@ namespace Bym.UI.Models.DAL.Usuario
             Sql.Append(")");
 
             DbContext.ExecuteQuery(Sql.ToString());
+        }
+
+        public Domain.Usuario ConsultarPorId(int id)
+        {
+            Domain.Usuario usuario = new Domain.Usuario();
+
+            Sql.Append("SELECT * FROM USUARIOS WHERE Id = " + id);
+
+            using (var reader = DbContext.ExecuteQueryReader(Sql.ToString()))
+            {
+                if (reader.Read())
+                {
+                    usuario = ObterEntidadeReader(reader);
+                }
+            }
+
+            return usuario;
+        }
+
+        public Domain.Usuario ObterEntidadeReader(IDataReader reader)
+        {
+            Domain.Usuario usuario = new Domain.Usuario();
+
+            usuario.Id = Convert.ToInt32(reader["Id"]);
+            usuario.Login = Convert.ToString(reader["Login"]);
+            usuario.Senha = Convert.ToString(reader["Senha"]);
+
+            return usuario;
         }
     }
 }

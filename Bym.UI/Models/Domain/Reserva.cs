@@ -7,8 +7,7 @@ namespace Bym.UI.Models.Domain
 {
     public class Reserva : EntidadeDominio
     {
-        public DateTime Data { get; set; }
-        public TimeSpan HoraInicio { get; set; }
+        public DateTime DataHora { get; set; }
         public decimal HorasReservadas { get; set; }
         public Sala Sala { get; set; }
         public Usuario Usuario { get; set; }
