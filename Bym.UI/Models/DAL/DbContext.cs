@@ -110,41 +110,13 @@ namespace Bym.UI.Models.DAL
         {
             try
             {
-                using (var conn = _SqlConnection)
-                {
-                    using (var cmd = new SqlCommand(Query, conn))
-                    {
-                        conn.Open();
+                var conn = _SqlConnection;
+                var cmd = new SqlCommand(Query, conn);
+                cmd.CommandType = CommandType.Text;
 
-                        return cmd.ExecuteReader();
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
+                conn.Open();
 
-        public static bool ExecuteQueryLogin(string Query)
-        {
-            try
-            {
-                using (var conn = _SqlConnection)
-                {
-                    using (var cmd = new SqlCommand(Query, conn))
-                    {
-                        conn.Open();
-
-                        var reader = cmd.ExecuteReader();
-                        //resolver isso direito
-                        return Convert.ToInt32(reader["Exists"]) > 0;
-                    }
-                }
+                return cmd.ExecuteReader();
             }
             catch (SqlException)
             {

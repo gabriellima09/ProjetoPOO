@@ -1,20 +1,17 @@
 ﻿using Bym.UI.Models.BLL.Usuario;
 using Bym.UI.Models.Domain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Bym.UI.Controllers
 {
     public class UsuarioController : Controller
     {
-        private readonly GestaoUsuario usuarioBLL;
+        private readonly UsuarioBLL usuarioBLL;
 
         public UsuarioController()
         {
-            usuarioBLL = new GestaoUsuario();
+            usuarioBLL = new UsuarioBLL();
         }
 
         // GET: Usuario

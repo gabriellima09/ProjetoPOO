@@ -135,15 +135,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Authentication\SessionAuthotizeAttribute.cs" />
-    <Compile Include="Models\BLL\Usuario\GestaoUsuario.cs" />
+    <Compile Include="Models\BLL\ICrud.cs" />
+    <Compile Include="Models\BLL\Reserva\ReservaBLL.cs" />
+    <Compile Include="Models\BLL\Sala\SalaBLL.cs" />
+    <Compile Include="Models\BLL\Usuario\UsuarioBLL.cs" />
     <Compile Include="Models\BLL\Usuario\IUsuarioBLL.cs" />
     <Compile Include="Models\DAL\DbContext.cs" />
     <Compile Include="Models\DAL\DbUtil.cs" />
     <Compile Include="Models\DAL\IDao.cs" />
-    <Compile Include="Models\DAL\Reserva\ReservaDAL.cs" />
-    <Compile Include="Models\DAL\Sala\SalaDAL.cs" />
-    <Compile Include="Models\DAL\Usuario\IUsuarioDAL.cs" />
-    <Compile Include="Models\DAL\Usuario\UsuarioDAL.cs" />
+    <Compile Include="Models\DAL\Repository\Reserva\ReservaDAL.cs" />
+    <Compile Include="Models\DAL\Repository\Sala\SalaDAL.cs" />
+    <Compile Include="Models\DAL\Repository\Usuario\IUsuarioDAL.cs" />
+    <Compile Include="Models\DAL\Repository\Usuario\UsuarioDAL.cs" />
     <Compile Include="Models\Domain\Endereco.cs" />
     <Compile Include="Models\Domain\EntidadeDominio.cs" />
     <Compile Include="Models\Domain\Reserva.cs" />

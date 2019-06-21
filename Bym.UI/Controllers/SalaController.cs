@@ -1,8 +1,6 @@
 ﻿using Bym.UI.Models.Authentication;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Bym.UI.Models.BLL.Sala;
+using Bym.UI.Models.Domain;
 using System.Web.Mvc;
 
 namespace Bym.UI.Controllers
@@ -10,16 +8,28 @@ namespace Bym.UI.Controllers
     [SessionAuthotize]
     public class SalaController : Controller
     {
+        private readonly SalaBLL SalaBLL;
+
+        public SalaController()
+        {
+            SalaBLL = new SalaBLL();
+        }
+
         // GET: Sala
         public ActionResult Index()
         {
             return View();
         }
 
+        public ActionResult PV_List()
+        {
+            return View(SalaBLL.ConsultarTodos());
+        }
+
         // GET: Sala/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(SalaBLL.ConsultarPorId(id));
         }
 
         // GET: Sala/Create
@@ -30,61 +40,82 @@ namespace Bym.UI.Controllers
 
         // POST: Sala/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Sala sala)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    SalaBLL.Cadastrar(sala);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(sala);
+                }
             }
             catch
             {
-                return View();
+                return View("Error");
             }
         }
 
         // GET: Sala/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(SalaBLL.ConsultarPorId(id));
         }
 
         // POST: Sala/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Sala sala)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    SalaBLL.Alterar(sala);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(sala);
+                }
             }
             catch
             {
-                return View();
+                return View("Error");
             }
         }
 
         // GET: Sala/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(SalaBLL.ConsultarPorId(id));
         }
 
         // POST: Sala/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(Sala sala)
         {
             try
             {
-                // TODO: Add delete logic here
+                if (ModelState.IsValid)
+                {
+                    SalaBLL.Excluir(sala.Id);
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(sala);
+                }
             }
             catch
             {
-                return View();
+                return View("Error");
             }
         }
     }

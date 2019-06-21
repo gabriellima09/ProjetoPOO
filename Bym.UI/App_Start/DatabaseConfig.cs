@@ -56,7 +56,7 @@ namespace Bym.UI.App_Start
             {
                 StringBuilder sb = new StringBuilder();
 
-                sb.Append("IF OBJECT_ID('" + DbUtil.DatabaseName + ".USUARIOS') IS NULL");
+                sb.Append("IF (SELECT COUNT(name) FROM " + DbUtil.DatabaseName + ".sys.tables where name = 'USUARIOS') = 0");
                 sb.Append(" BEGIN");
                 sb.Append(" CREATE TABLE USUARIOS(");
                 sb.Append(" Id INT IDENTITY(1,1) PRIMARY KEY,");
@@ -67,7 +67,7 @@ namespace Bym.UI.App_Start
 
                 sb.Append("\n");
 
-                sb.Append("IF OBJECT_ID('" + DbUtil.DatabaseName + ".RESERVAS') IS NULL");
+                sb.Append("IF (SELECT COUNT(name) FROM " + DbUtil.DatabaseName + ".sys.tables where name = 'RESERVAS') = 0");
                 sb.Append(" BEGIN");
                 sb.Append(" CREATE TABLE RESERVAS(");
                 sb.Append(" Id INT IDENTITY(1,1) PRIMARY KEY,");

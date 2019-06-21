@@ -4,31 +4,31 @@ using System.Linq;
 using System.Web;
 using Bym.UI.Models.Domain;
 
-namespace Bym.UI.Models.DAL.Reserva
+namespace Bym.UI.Models.DAL.Sala
 {
-    public class ReservaDAL : IDao<Domain.Reserva>
+    public class SalaDAL : IDao<Domain.Sala>
     {
-        public void Alterar()
+        public void Alterar(Domain.Sala entidade)
         {
             throw new NotImplementedException();
         }
 
-        public IList<Domain.Reserva> Consultar()
+        public IList<Domain.Sala> ConsultarTodos()
         {
             throw new NotImplementedException();
         }
 
-        public IList<Domain.Reserva> ConsultarPorId(int id)
+        public Domain.Sala ConsultarPorId(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Excluir()
+        public void Excluir(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Salvar()
+        public void Cadastrar(Domain.Sala entidade)
         {
             throw new NotImplementedException();
         }

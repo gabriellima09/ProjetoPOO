@@ -1,9 +1,10 @@
 ﻿@model IEnumerable<Bym.UI.Models.Domain.Sala>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+@{
+    Layout = null;
+}
+
+<table class="table table-bordered table-condensed table-hover table-responsive table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CapacidadeMaxima)
@@ -23,29 +24,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CapacidadeMaxima)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ValorHora)
-        </td>
-        <d>
-            @string.Concat(item.Endereco.Logradouro, " ", item.Endereco.Complemento, ", ", item.Endereco.Numero)
-        </d>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CapacidadeMaxima)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorHora)
+            </td>
+            <d>
+                @string.Concat(item.Endereco.Logradouro, " ", item.Endereco.Complemento, ", ", item.Endereco.Numero)
+            </d>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

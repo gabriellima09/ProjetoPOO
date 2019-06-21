@@ -20,14 +20,22 @@ namespace Bym.UI.Models.DAL.Usuario
 
         public bool Login(Domain.Usuario usuario)
         {
+            bool existe = false;
+
             Sql.Append("SELECT (SELECT COUNT(*) FROM USUARIOS ");
             Sql.Append("WHERE ");
             Sql.Append("USUARIOS.Login LIKE '%" + usuario.Login + "%' ");
             Sql.Append("AND USUARIOS.Senha LIKE '%" + usuario.Senha + "%') AS 'Exists'");
 
-            var reader = DbContext.ExecuteQueryLogin(Sql.ToString());
+            using (var reader = DbContext.ExecuteQueryReader(Sql.ToString()))
+            {
+                if (reader.Read())
+                {
+                    existe = Convert.ToInt32(reader["Exists"]) > 0;
+                }
+            }
 
-            return reader;
+            return existe;
         }
 
         public void Cadastrar(Domain.Usuario usuario)

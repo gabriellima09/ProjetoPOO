@@ -7,11 +7,11 @@ using Bym.UI.Models.Domain;
 
 namespace Bym.UI.Models.BLL.Usuario
 {
-    public class GestaoUsuario : IUsuarioBLL
+    public class UsuarioBLL : IUsuarioBLL
     {
         private readonly IUsuarioDAL usuarioDAL;
 
-        public GestaoUsuario()
+        public UsuarioBLL()
         {
             usuarioDAL = new UsuarioDAL();
         }
