@@ -25,5 +25,10 @@ namespace Bym.UI.Models.BLL.Usuario
         {
             return usuarioDAL.ConsultarPorId(id);
         }
+
+        public Domain.Usuario RetornarDadosUsuario(string login, string senha)
+        {
+            return usuarioDAL.RetornarDadosUsuario(login, senha);
+        }
     }
 }

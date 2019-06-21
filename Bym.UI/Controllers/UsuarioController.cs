@@ -45,7 +45,7 @@ namespace Bym.UI.Controllers
         {
             if (usuarioBLL.Login(usuario))
             {
-                Session.Add("Usuario", usuario);
+                Session.Add("Usuario", usuarioBLL.RetornarDadosUsuario(usuario.Login, usuario.Senha));
                 
                 return RedirectToAction("Index", "Home");
             }

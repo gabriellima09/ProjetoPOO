@@ -78,5 +78,25 @@ namespace Bym.UI.Models.DAL.Usuario
 
             return usuario;
         }
+
+        private Domain.Usuario RetornarDadosUsuario(string login, string senha)
+        {
+            Domain.Usuario usuario = null; 
+
+            Sql.Append("SELECT * FROM USUARIOS ");
+            Sql.Append("WHERE ");
+            Sql.Append("USUARIOS.Login LIKE '%" + login + "%' ");
+            Sql.Append("AND USUARIOS.Senha LIKE '%" + senha + "%'");
+
+            using (var reader = DbContext.ExecuteQueryReader(Sql.ToString()))
+            {
+                if (reader.Read())
+                {
+                    usuario = ObterEntidadeReader(reader);
+                }
+            }
+
+            return usuario;
+        }
     }
 }

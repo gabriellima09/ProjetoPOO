@@ -1,6 +1,8 @@
 ﻿using Bym.UI.Models.Authentication;
 using Bym.UI.Models.BLL.Reserva;
+using Bym.UI.Models.BLL.Sala;
 using Bym.UI.Models.Domain;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Bym.UI.Controllers
@@ -9,10 +11,36 @@ namespace Bym.UI.Controllers
     public class ReservaController : Controller
     {
         private readonly ReservaBLL ReservaBLL;
+        private readonly SalaBLL salaBLL;
 
         public ReservaController()
         {
             ReservaBLL = new ReservaBLL();
+            salaBLL = new SalaBLL();
+
+            CarregarDropDownLists();
+        }
+
+        public void CarregarDropDownLists()
+        {
+            SelectListItem item = new SelectListItem
+            {
+                Selected = true,
+                Text = "Selecione uma opção ...",
+                Value = string.Empty,
+            };
+
+            List<SelectListItem> selectListSalas = new List<SelectListItem> { item };
+
+            List<Sala> salas = salaBLL.ConsultarTodos();
+            
+            salas.ForEach(x => selectListSalas.Add(new SelectListItem
+            {
+                Text = x.Descricao,
+                Value = x.Id.ToString()
+            }));
+
+            ViewBag.VbSalas = selectListSalas;
         }
 
         // GET: Reserva
@@ -46,6 +74,8 @@ namespace Bym.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    reserva.Usuario = (Usuario)Session["Usuario"];
+
                     ReservaBLL.Cadastrar(reserva);
 
                     return RedirectToAction("Index");

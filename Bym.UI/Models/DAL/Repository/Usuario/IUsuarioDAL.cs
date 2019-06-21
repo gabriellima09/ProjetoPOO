@@ -8,5 +8,6 @@ namespace Bym.UI.Models.DAL.Usuario
         bool Login(Domain.Usuario usuario);
         Domain.Usuario ConsultarPorId(int id);
         Domain.Usuario ObterEntidadeReader(IDataReader reader);
+        Domain.Usuario RetornarDadosUsuario(string login, string senha);
     }
 }
