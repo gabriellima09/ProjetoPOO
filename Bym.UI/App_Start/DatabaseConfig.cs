@@ -71,8 +71,8 @@ namespace Bym.UI.App_Start
                 sb.Append(" BEGIN");
                 sb.Append(" CREATE TABLE RESERVAS(");
                 sb.Append(" Id INT IDENTITY(1,1) PRIMARY KEY,");
-                sb.Append(" DataHora DATETIME,");
-                sb.Append(" HorasReservadas DECIMAL(8,2),");
+                sb.Append(" DataHora SMALLDATETIME,");
+                sb.Append(" HorasReservadas INT,");
                 sb.Append(" IdSala INT,");
                 sb.Append(" IdUsuario INT");
                 sb.Append(");");

@@ -2,6 +2,7 @@
 using Bym.UI.Models.BLL.Reserva;
 using Bym.UI.Models.BLL.Sala;
 using Bym.UI.Models.Domain;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -36,7 +37,7 @@ namespace Bym.UI.Controllers
             
             salas.ForEach(x => selectListSalas.Add(new SelectListItem
             {
-                Text = x.Descricao,
+                Text = string.Concat(x.Nome, " - ", x.CapacidadeMaxima, " Lugares - ", x.ValorHora.ToString("C"), "/h"),
                 Value = x.Id.ToString()
             }));
 
@@ -85,7 +86,7 @@ namespace Bym.UI.Controllers
                     return View(reserva);
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 return View("Error");
             }
@@ -105,7 +106,9 @@ namespace Bym.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    ReservaBLL.Cadastrar(reserva);
+                    reserva.Usuario = (Usuario)Session["Usuario"];
+
+                    ReservaBLL.Alterar(reserva);
 
                     return RedirectToAction("Index");
                 }

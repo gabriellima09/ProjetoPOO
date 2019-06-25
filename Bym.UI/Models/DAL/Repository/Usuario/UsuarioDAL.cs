@@ -7,14 +7,11 @@ namespace Bym.UI.Models.DAL.Usuario
 {
     public class UsuarioDAL : IUsuarioDAL
     {
-        private StringBuilder Sql = new StringBuilder();
+        private StringBuilder Sql;
 
         public UsuarioDAL()
         {
-            if (Sql.Length > 0)
-            {
-                Sql.Clear();
-            }
+            Sql = new StringBuilder();
         }
 
         public bool Login(Domain.Usuario usuario)
@@ -79,9 +76,11 @@ namespace Bym.UI.Models.DAL.Usuario
             return usuario;
         }
 
-        private Domain.Usuario RetornarDadosUsuario(string login, string senha)
+        public Domain.Usuario RetornarDadosUsuario(string login, string senha)
         {
-            Domain.Usuario usuario = null; 
+            Domain.Usuario usuario = null;
+
+            Sql.Clear();
 
             Sql.Append("SELECT * FROM USUARIOS ");
             Sql.Append("WHERE ");

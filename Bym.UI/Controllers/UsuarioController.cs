@@ -86,6 +86,8 @@ namespace Bym.UI.Controllers
                 {
                     usuarioBLL.Cadastrar(usuario);
 
+                    usuario = usuarioBLL.RetornarDadosUsuario(usuario.Login, usuario.Senha);
+
                     Session.Add("Usuario", usuario);
 
                     return RedirectToAction("Index", "Home"); 

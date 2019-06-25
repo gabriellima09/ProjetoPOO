@@ -10,14 +10,11 @@ namespace Bym.UI.Models.DAL.Sala
 {
     public class SalaDAL : IDao<Domain.Sala>
     {
-        StringBuilder Sql = new StringBuilder();
+        StringBuilder Sql;
 
         public SalaDAL()
         {
-            if (Sql.Length > 0)
-            {
-                Sql.Clear();
-            }
+            Sql = new StringBuilder();
         }
 
         public void Alterar(Domain.Sala entidade)

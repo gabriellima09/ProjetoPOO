@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Bym.UI.Models.DAL
 {
-    public class DbContext : IDisposable
+    public class DbContext
     {
         private static string ConnectionString
         {
@@ -41,62 +41,10 @@ namespace Bym.UI.Models.DAL
                         cmd.ExecuteScalar();
                     }
                 }
+
+                _SqlConnection.Close();
             }
             catch (SqlException ex)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public static void ExecuteNonQuery(string StoredProcedure, IList<SqlParameter> sqlParameters)
-        {
-            try
-            {
-                using (var conn = _SqlConnection)
-                {
-                    using (var cmd = new SqlCommand(StoredProcedure, conn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddRange((SqlParameter[])sqlParameters);
-
-                        conn.Open();
-
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (SqlException)
-            {
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public static IDataReader ExecuteNonQueryReader(string StoredProcedure, IList<SqlParameter> sqlParameters)
-        {
-            try
-            {
-                using (var conn = _SqlConnection)
-                {
-                    using (var cmd = new SqlCommand(StoredProcedure, conn))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddRange((SqlParameter[])sqlParameters);
-
-                        conn.Open();
-
-                        return cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                    }
-                }
-            }
-            catch (SqlException)
             {
                 throw;
             }
@@ -126,16 +74,6 @@ namespace Bym.UI.Models.DAL
             {
                 throw;
             }
-        }
-
-        public void Dispose()
-        {
-            if (_SqlConnection.State != ConnectionState.Closed)
-            {
-                _SqlConnection.Close();
-            }
-
-            GC.SuppressFinalize(this);
         }
     }
 }

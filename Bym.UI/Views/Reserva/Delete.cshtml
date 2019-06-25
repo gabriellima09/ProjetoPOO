@@ -27,6 +27,28 @@
             @Html.DisplayFor(model => model.HorasReservadas)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Sala)
+        </dt>
+
+        <dd>
+            @string.Concat(Model.Sala.Nome
+                ," - "
+                ,Model.Sala.CapacidadeMaxima, " Lugares"
+                ," - "
+                ,Model.Sala.ValorHora, "/h"
+                ," - "
+                ,Model.Sala.Endereco.Logradouro, " ", Model.Sala.Endereco.Numero, " ", Model.Sala.Endereco.Complemento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Login)
+        </dd>
+
     </dl>
 
     @using (Html.BeginForm()) {

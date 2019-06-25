@@ -7,20 +7,17 @@ namespace Bym.UI.Models.DAL.Reserva
 {
     public class ReservaDAL : IDao<Domain.Reserva>
     {
-        StringBuilder Sql = new StringBuilder();
+        StringBuilder Sql;
 
         public ReservaDAL()
         {
-            if (Sql.Length > 0)
-            {
-                Sql.Clear();
-            }
+            Sql = new StringBuilder();
         }
 
         public void Alterar(Domain.Reserva entidade)
         {
             Sql.Append("UPDATE RESERVAS SET");
-            Sql.Append(" DataHora = '" + entidade.DataHora + "',");
+            Sql.Append(" DataHora = '" + entidade.DataHora.ToString("yyyy-MM-dd HH:mm:ss") + "',");
             Sql.Append(" HorasReservadas = " + entidade.HorasReservadas + ",");
             Sql.Append(" IdSala = " + entidade.Sala.Id + ",");
             Sql.Append(" IdUsuario = " + entidade.Usuario.Id);
@@ -83,7 +80,7 @@ namespace Bym.UI.Models.DAL.Reserva
             Sql.Append(" IdUsuario");
             Sql.Append(")");
             Sql.Append("VALUES (");
-            Sql.Append("'" + entidade.DataHora + "',");
+            Sql.Append("'" + entidade.DataHora.ToString("yyyy-MM-dd HH:mm:ss") + "',");
             Sql.Append(entidade.HorasReservadas + ",");
             Sql.Append(entidade.Sala.Id + ",");
             Sql.Append(entidade.Usuario.Id);
