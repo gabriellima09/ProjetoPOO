@@ -46,6 +46,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -147,11 +153,13 @@
     <Compile Include="Models\DAL\Repository\Sala\SalaDAL.cs" />
     <Compile Include="Models\DAL\Repository\Usuario\IUsuarioDAL.cs" />
     <Compile Include="Models\DAL\Repository\Usuario\UsuarioDAL.cs" />
+    <Compile Include="Models\Domain\Dashboard.cs" />
     <Compile Include="Models\Domain\Endereco.cs" />
     <Compile Include="Models\Domain\EntidadeDominio.cs" />
     <Compile Include="Models\Domain\Reserva.cs" />
     <Compile Include="Models\Domain\Sala.cs" />
     <Compile Include="Models\Domain\Usuario.cs" />
+    <Compile Include="Models\Report\Relatorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,8 +200,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Usuario\Details.cshtml" />
     <Content Include="Views\Usuario\Create.cshtml" />
-    <Content Include="Views\Usuario\Edit.cshtml" />
-    <Content Include="Views\Usuario\Delete.cshtml" />
     <Content Include="Views\Sala\Index.cshtml" />
     <Content Include="Views\Sala\Details.cshtml" />
     <Content Include="Views\Sala\Create.cshtml" />
@@ -208,6 +214,7 @@
     <Content Include="Views\Reserva\Delete.cshtml" />
     <Content Include="Views\Usuario\PV_Usuario.cshtml" />
     <Content Include="Views\Usuario\Login.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,6 +1,8 @@
 ﻿using Bym.UI.Models.BLL.Usuario;
 using Bym.UI.Models.Domain;
+using Bym.UI.Models.Report;
 using System;
+using System.Net;
 using System.Web.Mvc;
 
 namespace Bym.UI.Controllers
@@ -17,7 +19,53 @@ namespace Bym.UI.Controllers
         // GET: Usuario
         public ActionResult Index()
         {
-            return RedirectToAction("Create");
+            Dashboard dashboard = new Dashboard
+            {
+                TotalReservas = 5,
+                TotalSalas = 12,
+                ValorArrecadado = 50.35M,
+                SalaMaiorCapacidade = "Sala Teste",
+                UltimaReserva = new Reserva
+                {
+                    Id = 1,
+                    DataHora = DateTime.Now,
+                    HorasReservadas = 2,
+                    Sala = new Sala
+                    {
+                        Id = 1,
+                        CapacidadeMaxima = 5,
+                        Descricao = "Daora",
+                        Nome = "Sala Teste",
+                        ValorHora = 15.70M,
+                        Endereco = new Endereco
+                        {
+                            Logradouro = "Rua A",
+                            Numero = "100",
+                            Complemento = "Casa"
+                        }
+                    },
+                    Usuario = new Usuario
+                    {
+                        Login = "Gabriel"
+                    }
+                },
+                UltimaSalaCadastrada = new Sala
+                {
+                    Id = 1,
+                    CapacidadeMaxima = 5,
+                    Descricao = "Daora",
+                    Nome = "Sala Teste",
+                    ValorHora = 15.70M,
+                    Endereco = new Endereco
+                    {
+                        Logradouro = "Rua A",
+                        Numero = "100",
+                        Complemento = "Casa"
+                    }
+                }
+            };
+
+            return View(dashboard);
         }
 
         public ActionResult RetornarUsuarioSessao()
@@ -38,7 +86,6 @@ namespace Bym.UI.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         public ActionResult Login(Usuario usuario)
@@ -103,48 +150,12 @@ namespace Bym.UI.Controllers
             }
         }
 
-        // GET: Usuario/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Usuario/Edit/5
         [HttpPost]
-        public ActionResult Edit(Usuario usuario)
+        public ActionResult Report(Dashboard dashboard)
         {
-            try
-            {
-                // TODO: Add update logic here
+            new Relatorio(dashboard);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Usuario/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Usuario/Delete/5
-        [HttpPost]
-        public ActionResult Delete(Usuario usuario)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
     }
 }

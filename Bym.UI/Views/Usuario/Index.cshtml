@@ -1,0 +1,120 @@
+﻿@model Bym.UI.Models.Domain.Dashboard
+@{
+    ViewBag.Title = "Dashbord";
+}
+
+<h2>Dashboard</h2>
+
+<hr />
+
+<div class="btn-group">
+    @using (Html.BeginForm("Report", "Usuario", FormMethod.Post))
+    {
+        @Html.Hidden("Model", Json.Encode(Model))
+
+        <button class="btn btn-primary" type="submit">
+            <span class="glyphicon glyphicon-file"></span>
+            <span>Gerar Relatório </span>
+        </button>
+    }
+</div>
+
+<hr />
+
+<div class="panel panel-body panel-default">
+    <div class="row">
+        <!-- Reservas -->
+        <div class="col-sm-3 col-md-3">
+            <a href="/Reserva/Index/" class="thumbnail">
+                <h4 align="center" style="margin-bottom:0"><label class="control-label">Reservas</label></h4>
+                <hr style="margin-top:0" />
+                <div class="form-group">
+                    <label class="control-label">Total de Reservas: </label>
+                    <span style="color:black"><strong>@Model.TotalReservas</strong></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Valor Arrecadado: </label>
+                    <span style="color:black"><strong>@Model.ValorArrecadado.ToString("C")</strong></span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Salas -->
+        <div class="col-sm-3 col-md-3">
+            <a href="/Sala/Index/" class="thumbnail">
+                <h4 align="center" style="margin-bottom:0"><label class="control-label">Salas</label></h4>
+                <hr style="margin-top:0" />
+                <div class="form-group">
+                    <label class="control-label">Salas Cadastradas: </label>
+                    <span style="color:black"><strong>@Model.TotalSalas</strong></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Salas Maior Capacidade: </label>
+                    <span style="color:black"><strong>@Model.SalaMaiorCapacidade</strong></span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Ultima Reserva -->
+        <div class="col-sm-3 col-md-3">
+            <a href="#" class="thumbnail">
+                <h4 align="center" style="margin-bottom:0"><label class="control-label">Última Reserva</label></h4>
+                <hr style="margin-top:0" />
+                <div class="form-group">
+                    <div class="panel-heading" style="padding:0">
+                        <label class="control-label">Reserva:</label>
+                    </div>
+                    <div class="panel-body" style="padding:0;text-align:justify">
+                        <span style="color:black">
+                            <strong>
+                                @string.Concat(Model.UltimaReserva.Sala.Nome,
+                                                " - ",
+                                                Model.UltimaReserva.Sala.CapacidadeMaxima, " Lugares ",
+                                                " - ",
+                                                Model.UltimaReserva.Sala.ValorHora.ToString("C"), "/h")
+                            </strong>
+                        </span>
+                        <span style="color:black">
+                            <strong>
+                                @string.Concat(Model.UltimaReserva.DataHora, " - ", Model.UltimaReserva.HorasReservadas, "h")
+                            </strong>
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Ultima Sala Cadastrada -->
+        <div class="col-sm-3 col-md-3">
+            <a href="#" class="thumbnail">
+                <h4 align="center" style="margin-bottom:0"><label class="control-label">Última Sala Cadastrada</label></h4>
+                <hr style="margin-top:0" />
+                <div class="form-group">
+                    <div class="panel-heading" style="padding:0">
+                        <label class="control-label">Sala:</label>
+                    </div>
+                    <div class="panel-body" style="padding:0;text-align:justify">
+                        <span style="color:black">
+                            <strong>
+                                @string.Concat(Model.UltimaSalaCadastrada.Nome,
+                                                " - ",
+                                                Model.UltimaSalaCadastrada.CapacidadeMaxima, " Lugares ",
+                                                " - ",
+                                                Model.UltimaSalaCadastrada.ValorHora.ToString("C"), "/h")
+                            </strong>
+                        </span>
+                        <span style="color:black">
+                            <strong>
+                                @string.Concat(Model.UltimaSalaCadastrada.Endereco.Logradouro,
+                                                " ",
+                                                Model.UltimaSalaCadastrada.Endereco.Numero,
+                                                " ",
+                                                Model.UltimaSalaCadastrada.Endereco.Complemento)
+                            </strong>
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
