@@ -55,7 +55,10 @@ namespace Bym.UI.Models.DAL.Sala
 
         public Domain.Sala ConsultarPorId(int id)
         {
-            Domain.Sala sala = new Domain.Sala();
+            Domain.Sala sala = new Domain.Sala
+            {
+                Endereco = new Endereco()
+            };
 
             Sql.Append("SELECT * FROM SALAS WHERE Id = " + id);
 

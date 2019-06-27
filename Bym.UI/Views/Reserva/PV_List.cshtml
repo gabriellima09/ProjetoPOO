@@ -23,10 +23,17 @@
         <td>
             @Html.DisplayFor(modelItem => item.HorasReservadas)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        <td align="center">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Opções <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>@Html.ActionLink("Editar", "Edit", new { id = item.Id }, new { @class = "btn-warning" })</li>
+                    <li>@Html.ActionLink("Detalhes", "Details", new { id = item.Id }, new { @class = "btn-default" })</li>
+                    <li>@Html.ActionLink("Excluir", "Delete", new { id = item.Id }, new { @class = "btn-danger" })</li>
+                </ul>
+            </div>
         </td>
     </tr>
 }

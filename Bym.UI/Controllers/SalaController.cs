@@ -1,6 +1,9 @@
-﻿using Bym.UI.Models.Authentication;
+﻿using Bym.UI.Facade;
+using Bym.UI.Models.Authentication;
+using Bym.UI.Models.BLL;
 using Bym.UI.Models.BLL.Sala;
 using Bym.UI.Models.Domain;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Bym.UI.Controllers
@@ -8,11 +11,13 @@ namespace Bym.UI.Controllers
     [SessionAuthotize]
     public class SalaController : Controller
     {
-        private readonly SalaBLL SalaBLL;
+        private readonly ICrud<Sala> SalaBLL;
+        private readonly IFachada<Sala> Fachada;
 
         public SalaController()
         {
             SalaBLL = new SalaBLL();
+            Fachada = new Fachada<Sala>(SalaBLL);
         }
 
         // GET: Sala
@@ -23,13 +28,13 @@ namespace Bym.UI.Controllers
 
         public ActionResult PV_List()
         {
-            return View(SalaBLL.ConsultarTodos());
+            return View(Fachada.ConsultarTodos().OrderByDescending(x => x.Id));
         }
 
         // GET: Sala/Details/5
         public ActionResult Details(int id)
         {
-            return View(SalaBLL.ConsultarPorId(id));
+            return View(Fachada.ConsultarPorId(id));
         }
 
         // GET: Sala/Create
@@ -46,7 +51,7 @@ namespace Bym.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    SalaBLL.Cadastrar(sala);
+                    Fachada.Cadastrar(sala);
 
                     return RedirectToAction("Index");
                 }
@@ -64,7 +69,7 @@ namespace Bym.UI.Controllers
         // GET: Sala/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(SalaBLL.ConsultarPorId(id));
+            return View(Fachada.ConsultarPorId(id));
         }
 
         // POST: Sala/Edit/5
@@ -75,7 +80,7 @@ namespace Bym.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    SalaBLL.Alterar(sala);
+                    Fachada.Alterar(sala);
 
                     return RedirectToAction("Index");
                 }
@@ -93,7 +98,7 @@ namespace Bym.UI.Controllers
         // GET: Sala/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(SalaBLL.ConsultarPorId(id));
+            return View(Fachada.ConsultarPorId(id));
         }
 
         // POST: Sala/Delete/5
@@ -104,7 +109,7 @@ namespace Bym.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    SalaBLL.Excluir(sala.Id);
+                    Fachada.Excluir(sala.Id);
 
                     return RedirectToAction("Index");
                 }

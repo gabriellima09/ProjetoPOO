@@ -1,4 +1,5 @@
 ﻿using Bym.UI.Models.DAL;
+using System;
 using System.Data.SqlClient;
 using System.Text;
 
@@ -60,26 +61,28 @@ namespace Bym.UI.App_Start
                 sb.Append(" BEGIN");
                 sb.Append(" CREATE TABLE USUARIOS(");
                 sb.Append(" Id INT IDENTITY(1,1) PRIMARY KEY,");
+                sb.Append(" Nome VARCHAR(50),");
                 sb.Append(" Login VARCHAR(50),");
                 sb.Append(" Senha VARCHAR(50)");
                 sb.Append(");");
-                sb.Append(" END");
 
                 sb.Append("\n");
 
-                sb.Append("IF (SELECT COUNT(name) FROM " + DbUtil.DatabaseName + ".sys.tables where name = 'RESERVAS') = 0");
-                sb.Append(" BEGIN");
-                sb.Append(" CREATE TABLE RESERVAS(");
-                sb.Append(" Id INT IDENTITY(1,1) PRIMARY KEY,");
-                sb.Append(" DataHora SMALLDATETIME,");
-                sb.Append(" HorasReservadas INT,");
-                sb.Append(" IdSala INT,");
-                sb.Append(" IdUsuario INT");
+                sb.Append("INSERT INTO USUARIOS (");
+                sb.Append("Nome, ");
+                sb.Append("Login, ");
+                sb.Append("Senha ");
+                sb.Append(")");
+                sb.Append("VALUES (");
+                sb.Append("'Administrador',");
+                sb.Append("'Admin',");
+                sb.Append("'123'");
                 sb.Append(");");
+
                 sb.Append(" END");
 
                 sb.Append("\n");
-
+                
                 sb.Append("IF (SELECT COUNT(name) FROM " + DbUtil.DatabaseName + ".sys.tables where name = 'SALAS') = 0");
                 sb.Append(" BEGIN");
                 sb.Append(" CREATE TABLE SALAS(");
@@ -92,6 +95,57 @@ namespace Bym.UI.App_Start
                 sb.Append(" Numero VARCHAR(50),");
                 sb.Append(" Complemento VARCHAR(50)");
                 sb.Append(");");
+
+                sb.Append("\n");
+
+                sb.Append("INSERT INTO SALAS (");
+                sb.Append(" CapacidadeMaxima,");
+                sb.Append(" Descricao,");
+                sb.Append(" Nome,");
+                sb.Append(" ValorHora,");
+                sb.Append(" Logradouro,");
+                sb.Append(" Numero,");
+                sb.Append(" Complemento");
+                sb.Append(")");
+                sb.Append("VALUES (");
+                sb.Append("4,");
+                sb.Append("'Contém frigobar',");
+                sb.Append("'Sala Alpha',");
+                sb.Append("15.50,");
+                sb.Append("'Rua João da Silva',");
+                sb.Append("'123',");
+                sb.Append("'Torre Z - 1º Andar'");
+                sb.Append(");");
+
+                sb.Append(" END");
+
+                sb.Append("\n");
+                
+                sb.Append("IF (SELECT COUNT(name) FROM " + DbUtil.DatabaseName + ".sys.tables where name = 'RESERVAS') = 0");
+                sb.Append(" BEGIN");
+                sb.Append(" CREATE TABLE RESERVAS(");
+                sb.Append(" Id INT IDENTITY(1,1) PRIMARY KEY,");
+                sb.Append(" DataHora SMALLDATETIME,");
+                sb.Append(" HorasReservadas INT,");
+                sb.Append(" IdSala INT,");
+                sb.Append(" IdUsuario INT");
+                sb.Append(");");
+
+                sb.Append("\n");
+
+                sb.Append("INSERT INTO RESERVAS (");
+                sb.Append(" DataHora,");
+                sb.Append(" HorasReservadas,");
+                sb.Append(" IdSala,");
+                sb.Append(" IdUsuario");
+                sb.Append(")");
+                sb.Append("VALUES (");
+                sb.Append("'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "',");
+                sb.Append("10,");
+                sb.Append("1,");
+                sb.Append("1");
+                sb.Append(");");
+
                 sb.Append(" END");
 
                 using (SqlConnection myConn = new SqlConnection(DbUtil.ConnectionString))

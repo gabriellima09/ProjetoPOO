@@ -1,9 +1,12 @@
-﻿using Bym.UI.Models.Authentication;
+﻿using Bym.UI.Facade;
+using Bym.UI.Models.Authentication;
+using Bym.UI.Models.BLL;
 using Bym.UI.Models.BLL.Reserva;
 using Bym.UI.Models.BLL.Sala;
 using Bym.UI.Models.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Bym.UI.Controllers
@@ -11,13 +14,18 @@ namespace Bym.UI.Controllers
     [SessionAuthotize]
     public class ReservaController : Controller
     {
-        private readonly ReservaBLL ReservaBLL;
-        private readonly SalaBLL salaBLL;
+        private readonly ICrud<Reserva> ReservaBLL;
+        private readonly ICrud<Sala> SalaBLL;
+        private readonly IFachada<Reserva> Fachada;
+        private readonly IFachada<Sala> SalasFachada;
 
         public ReservaController()
         {
             ReservaBLL = new ReservaBLL();
-            salaBLL = new SalaBLL();
+            Fachada = new Fachada<Reserva>(ReservaBLL);
+
+            SalaBLL = new SalaBLL();
+            SalasFachada = new Fachada<Sala>(SalaBLL);
 
             CarregarDropDownLists();
         }
@@ -33,7 +41,7 @@ namespace Bym.UI.Controllers
 
             List<SelectListItem> selectListSalas = new List<SelectListItem> { item };
 
-            List<Sala> salas = salaBLL.ConsultarTodos();
+            List<Sala> salas = SalasFachada.ConsultarTodos();
             
             salas.ForEach(x => selectListSalas.Add(new SelectListItem
             {
@@ -52,13 +60,13 @@ namespace Bym.UI.Controllers
 
         public ActionResult PV_List()
         {
-            return View(ReservaBLL.ConsultarTodos());
+            return View(Fachada.ConsultarTodos().OrderByDescending(x => x.Id));
         }
 
         // GET: Reserva/Details/5
         public ActionResult Details(int id)
         {
-            return View(ReservaBLL.ConsultarPorId(id));
+            return View(Fachada.ConsultarPorId(id));
         }
 
         // GET: Reserva/Create
@@ -77,7 +85,7 @@ namespace Bym.UI.Controllers
                 {
                     reserva.Usuario = (Usuario)Session["Usuario"];
 
-                    ReservaBLL.Cadastrar(reserva);
+                    Fachada.Cadastrar(reserva);
 
                     return RedirectToAction("Index");
                 }
@@ -86,7 +94,7 @@ namespace Bym.UI.Controllers
                     return View(reserva);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return View("Error");
             }
@@ -95,7 +103,7 @@ namespace Bym.UI.Controllers
         // GET: Reserva/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(ReservaBLL.ConsultarPorId(id));
+            return View(Fachada.ConsultarPorId(id));
         }
 
         // POST: Reserva/Edit/5
@@ -108,7 +116,7 @@ namespace Bym.UI.Controllers
                 {
                     reserva.Usuario = (Usuario)Session["Usuario"];
 
-                    ReservaBLL.Alterar(reserva);
+                    Fachada.Alterar(reserva);
 
                     return RedirectToAction("Index");
                 }
@@ -126,7 +134,7 @@ namespace Bym.UI.Controllers
         // GET: Reserva/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(ReservaBLL.ConsultarPorId(id));
+            return View(Fachada.ConsultarPorId(id));
         }
 
         // POST: Reserva/Delete/5
@@ -137,7 +145,7 @@ namespace Bym.UI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    ReservaBLL.Cadastrar(reserva);
+                    Fachada.Cadastrar(reserva);
 
                     return RedirectToAction("Index");
                 }

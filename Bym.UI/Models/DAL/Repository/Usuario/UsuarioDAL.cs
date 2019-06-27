@@ -37,11 +37,13 @@ namespace Bym.UI.Models.DAL.Usuario
         public void Cadastrar(Domain.Usuario usuario)
         {
             Sql.Append("INSERT INTO USUARIOS (");
+            Sql.Append("Nome, ");
             Sql.Append("Login, ");
             Sql.Append("Senha ");
             Sql.Append(")");
             Sql.Append("VALUES (");
-            Sql.Append("'" + usuario.Login + "'" + ",");
+            Sql.Append("'" + usuario.Nome + "',");
+            Sql.Append("'" + usuario.Login + "',");
             Sql.Append("'" + usuario.Senha + "'");
             Sql.Append(")");
 
@@ -67,11 +69,13 @@ namespace Bym.UI.Models.DAL.Usuario
 
         public Domain.Usuario ObterEntidadeReader(IDataReader reader)
         {
-            Domain.Usuario usuario = new Domain.Usuario();
-
-            usuario.Id = Convert.ToInt32(reader["Id"]);
-            usuario.Login = Convert.ToString(reader["Login"]);
-            usuario.Senha = Convert.ToString(reader["Senha"]);
+            Domain.Usuario usuario = new Domain.Usuario
+            {
+                Id = Convert.ToInt32(reader["Id"]),
+                Nome = Convert.ToString(reader["Nome"]),
+                Login = Convert.ToString(reader["Login"]),
+                Senha = Convert.ToString(reader["Senha"])
+            };
 
             return usuario;
         }

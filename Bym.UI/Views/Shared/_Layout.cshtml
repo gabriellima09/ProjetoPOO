@@ -24,7 +24,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Início", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Gestao de Reservas", "Index", "Reserva")</li>
+                    <li>@Html.ActionLink("Gestão de Reservas", "Index", "Reserva")</li>
                     <li>@Html.ActionLink("Gestão de Salas", "Index", "Sala")</li>
                 </ul>
 
@@ -48,7 +48,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - AppName</p>
+            <p>&copy; @DateTime.Now.Year - @AppName</p>
         </footer>
     </div>
 

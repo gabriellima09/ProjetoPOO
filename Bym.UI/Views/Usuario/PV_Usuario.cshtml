@@ -8,7 +8,10 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            <li>@Html.ActionLink("Minhas Reservas", "MinhasReservas", "Reservas")</li>
+            <li>@Html.ActionLink("Dashboard", "Index", "Usuario")</li>
+            <li role="separator" class="divider"></li>
+            <li>@Html.ActionLink("Reservas", "Index", "Reservas")</li>
+            <li>@Html.ActionLink("Salas", "Index", "Reservas")</li>
             <li role="separator" class="divider"></li>
             <li>@Html.ActionLink("Sair", "Logout")</li>
         </ul>

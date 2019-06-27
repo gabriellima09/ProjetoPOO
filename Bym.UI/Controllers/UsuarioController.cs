@@ -1,8 +1,9 @@
-﻿using Bym.UI.Models.BLL.Usuario;
+﻿using Bym.UI.Models.Authentication;
+using Bym.UI.Models.BLL.Dashboard;
+using Bym.UI.Models.BLL.Usuario;
 using Bym.UI.Models.Domain;
 using Bym.UI.Models.Report;
 using System;
-using System.Net;
 using System.Web.Mvc;
 
 namespace Bym.UI.Controllers
@@ -17,55 +18,16 @@ namespace Bym.UI.Controllers
         }
 
         // GET: Usuario
+        [SessionAuthotize]
         public ActionResult Index()
         {
-            Dashboard dashboard = new Dashboard
-            {
-                TotalReservas = 5,
-                TotalSalas = 12,
-                ValorArrecadado = 50.35M,
-                SalaMaiorCapacidade = "Sala Teste",
-                UltimaReserva = new Reserva
-                {
-                    Id = 1,
-                    DataHora = DateTime.Now,
-                    HorasReservadas = 2,
-                    Sala = new Sala
-                    {
-                        Id = 1,
-                        CapacidadeMaxima = 5,
-                        Descricao = "Daora",
-                        Nome = "Sala Teste",
-                        ValorHora = 15.70M,
-                        Endereco = new Endereco
-                        {
-                            Logradouro = "Rua A",
-                            Numero = "100",
-                            Complemento = "Casa"
-                        }
-                    },
-                    Usuario = new Usuario
-                    {
-                        Login = "Gabriel"
-                    }
-                },
-                UltimaSalaCadastrada = new Sala
-                {
-                    Id = 1,
-                    CapacidadeMaxima = 5,
-                    Descricao = "Daora",
-                    Nome = "Sala Teste",
-                    ValorHora = 15.70M,
-                    Endereco = new Endereco
-                    {
-                        Logradouro = "Rua A",
-                        Numero = "100",
-                        Complemento = "Casa"
-                    }
-                }
-            };
+            return View("Dashboard", new DashboardBLL().RetornarDashboard());
+        }
 
-            return View(dashboard);
+        [SessionAuthotize]
+        public ActionResult Dashboard()
+        {
+            return View();
         }
 
         public ActionResult RetornarUsuarioSessao()
@@ -74,7 +36,7 @@ namespace Bym.UI.Controllers
 
             if (Session["Usuario"] != null)
             {
-                nome = ((Usuario)Session["Usuario"]).Login;
+                nome = ((Usuario)Session["Usuario"]).Nome;
             }
                 
             ViewBag.NomeUsuario = nome;
@@ -94,7 +56,7 @@ namespace Bym.UI.Controllers
             {
                 Session.Add("Usuario", usuarioBLL.RetornarDadosUsuario(usuario.Login, usuario.Senha));
                 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index");
             }
             else
             {
@@ -109,12 +71,6 @@ namespace Bym.UI.Controllers
             Session.Clear();
 
             return RedirectToAction("Index", "Home");
-        }
-
-        // GET: Usuario/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: Usuario/Create
@@ -137,23 +93,24 @@ namespace Bym.UI.Controllers
 
                     Session.Add("Usuario", usuario);
 
-                    return RedirectToAction("Index", "Home"); 
+                    return RedirectToAction("Index"); 
                 }
                 else
                 {
                     return View(usuario);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return View("Error");
             }
         }
 
         [HttpPost]
+        [SessionAuthotize]
         public ActionResult Report(Dashboard dashboard)
         {
-            new Relatorio(dashboard);
+            new Relatorio(dashboard).GerarRelatorio();
 
             return RedirectToAction("Index");
         }

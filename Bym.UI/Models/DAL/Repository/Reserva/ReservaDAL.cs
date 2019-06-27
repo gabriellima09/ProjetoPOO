@@ -49,7 +49,14 @@ namespace Bym.UI.Models.DAL.Reserva
 
         public Domain.Reserva ConsultarPorId(int id)
         {
-            Domain.Reserva reserva = new Domain.Reserva();
+            Domain.Reserva reserva = new Domain.Reserva
+            {
+                Sala = new Domain.Sala()
+                {
+                    Endereco = new Domain.Endereco()
+                },
+                Usuario = new Domain.Usuario()
+            };
 
             Sql.Append("SELECT * FROM RESERVAS WHERE Id = " + id);
 

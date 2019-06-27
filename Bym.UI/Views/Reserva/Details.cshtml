@@ -1,10 +1,10 @@
 ﻿@model Bym.UI.Models.Domain.Reserva
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
-<h2>Details</h2>
+<h2>Detalhes</h2>
 
 <div>
     <h4>Reserva</h4>
@@ -45,11 +45,11 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Usuario.Login)
+            @Html.DisplayFor(model => model.Usuario.Nome)
         </dd>
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-default" })
 </p>

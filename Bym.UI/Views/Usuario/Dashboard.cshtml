@@ -10,12 +10,35 @@
 <div class="btn-group">
     @using (Html.BeginForm("Report", "Usuario", FormMethod.Post))
     {
-        @Html.Hidden("Model", Json.Encode(Model))
-
         <button class="btn btn-primary" type="submit">
             <span class="glyphicon glyphicon-file"></span>
             <span>Gerar Relatório </span>
         </button>
+
+        @Html.HiddenFor(x => x.SalaMaiorCapacidade)
+        @Html.HiddenFor(x => x.TotalReservas)
+        @Html.HiddenFor(x => x.TotalSalas)
+        @Html.HiddenFor(x => x.ValorArrecadado)
+
+        @Html.HiddenFor(x => x.UltimaSalaCadastrada.CapacidadeMaxima)
+        @Html.HiddenFor(x => x.UltimaSalaCadastrada.Descricao)
+        @Html.HiddenFor(x => x.UltimaSalaCadastrada.Endereco.Complemento)
+        @Html.HiddenFor(x => x.UltimaSalaCadastrada.Endereco.Numero)
+        @Html.HiddenFor(x => x.UltimaSalaCadastrada.Endereco.Logradouro)
+        @Html.HiddenFor(x => x.UltimaSalaCadastrada.Nome)
+        @Html.HiddenFor(x => x.UltimaSalaCadastrada.ValorHora)
+
+        @Html.HiddenFor(x => x.UltimaReserva.DataHora)
+        @Html.HiddenFor(x => x.UltimaReserva.HorasReservadas)
+        @Html.HiddenFor(x => x.UltimaReserva.Usuario.Login)
+        @Html.HiddenFor(x => x.UltimaReserva.Sala.CapacidadeMaxima)
+        @Html.HiddenFor(x => x.UltimaReserva.Sala.Descricao)
+        @Html.HiddenFor(x => x.UltimaReserva.Sala.Descricao)
+        @Html.HiddenFor(x => x.UltimaReserva.Sala.Endereco.Complemento)
+        @Html.HiddenFor(x => x.UltimaReserva.Sala.Endereco.Numero)
+        @Html.HiddenFor(x => x.UltimaReserva.Sala.Endereco.Logradouro)
+        @Html.HiddenFor(x => x.UltimaReserva.Sala.Nome)
+        @Html.HiddenFor(x => x.UltimaReserva.Sala.ValorHora)
     }
 </div>
 
@@ -49,7 +72,7 @@
                     <span style="color:black"><strong>@Model.TotalSalas</strong></span>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">Salas Maior Capacidade: </label>
+                    <label class="control-label">Sala Maior Capacidade: </label>
                     <span style="color:black"><strong>@Model.SalaMaiorCapacidade</strong></span>
                 </div>
             </a>
@@ -57,7 +80,7 @@
 
         <!-- Ultima Reserva -->
         <div class="col-sm-3 col-md-3">
-            <a href="#" class="thumbnail">
+            <a href="/Reserva/Details/@Model.UltimaReserva.Id" class="thumbnail">
                 <h4 align="center" style="margin-bottom:0"><label class="control-label">Última Reserva</label></h4>
                 <hr style="margin-top:0" />
                 <div class="form-group">
@@ -86,7 +109,7 @@
 
         <!-- Ultima Sala Cadastrada -->
         <div class="col-sm-3 col-md-3">
-            <a href="#" class="thumbnail">
+            <a href="/Reserva/Details/@Model.UltimaSalaCadastrada.Id" class="thumbnail">
                 <h4 align="center" style="margin-bottom:0"><label class="control-label">Última Sala Cadastrada</label></h4>
                 <hr style="margin-top:0" />
                 <div class="form-group">
@@ -117,4 +140,45 @@
             </a>
         </div>
     </div>
+
+    <hr />
+
+    <h3>Info-Gráfico: </h3>
+
+    <div class="panel panel-default">
+        <canvas id="myChart" max-width="50" max-height="50"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Salas', 'Reservas'],
+                datasets: [{
+                    label: 'Total',
+                    data: [@Model.TotalSalas, @Model.TotalReservas],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
 </div>
